@@ -43,7 +43,7 @@ $app->post("/api/v1/barang/", function (Request $request, Response $response){
 
     $new_book = $request->getParsedBody();
 
-    $sql = "INSERT INTO barang (nama_barang, jumlah ) VALUE (:nama_barang, :jumlah)";
+    $sql = "INSERT INTO barang (nama_barang, jumlah ) VALUES (:nama_barang, :jumlah)";
     $stmt = $this->db->prepare($sql);
 
     $data = [
