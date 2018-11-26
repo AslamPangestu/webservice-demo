@@ -30,7 +30,7 @@ $app->get("/api/v1/barang/{id}", function (Request $request, Response $response,
     return $response->withJson(["status" => "success", "data" => $result], 200);
 });
 
-$app->get("/api/v1/barang/search", function (Request $request, Response $response, $args){
+$app->get("/api/v1/barang", function (Request $request, Response $response, $args){
     $keyword = $request->getQueryParam("nama_barang");
     $sql = "SELECT * FROM barang WHERE nama_barang LIKE '%$keyword%'";
     $stmt = $this->db->prepare($sql);
