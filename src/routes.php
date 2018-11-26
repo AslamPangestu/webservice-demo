@@ -32,7 +32,7 @@ $app->get("/api/v1/barang/{id}", function (Request $request, Response $response,
 
 $app->get("/api/v1/barang/search/", function (Request $request, Response $response, $args){
     $keyword = $request->getQueryParam("keyword");
-    $sql = "SELECT * FROM barang WHERE nama_barang LIKE '%$keyword%' OR jumlah LIKE '%$keyword%'";
+    $sql = "SELECT * FROM barang WHERE nama_barang LIKE '%$keyword%'";
     $stmt = $this->db->prepare($sql);
     $stmt->execute();
     $result = $stmt->fetchAll();
