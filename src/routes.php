@@ -31,8 +31,8 @@ $app->get("/api/v1/barang/{id}", function (Request $request, Response $response,
 });
 
 $app->get("/api/v1/barang", function (Request $request, Response $response, $args){
-    $keyword = $request->getQueryParam("nama_barang");
-    $sql = "SELECT * FROM barang WHERE nama_barang LIKE '%$keyword%'";
+    $keyword = $request->getQueryParam("name");
+    $sql = "SELECT * FROM barang WHERE name LIKE '%$keyword%'";
     $stmt = $this->db->prepare($sql);
     $stmt->execute();
     $result = $stmt->fetchAll();
@@ -43,12 +43,13 @@ $app->post("/api/v1/barang/", function (Request $request, Response $response){
 
     $new_book = $request->getParsedBody();
 
-    $sql = "INSERT INTO barang (nama_barang, jumlah ) VALUES (:nama_barang, :jumlah)";
+    $sql = "INSERT INTO barang (name, count, id_kategori ) VALUES (:name, :count, :id_kategori)";
     $stmt = $this->db->prepare($sql);
 
     $data = [
-        ":nama_barang" => $new_book["nama_barang"],
-        ":jumlah" => $new_book["jumlah"]
+        ":nama_barang" => $new_book["name"],
+        ":jumlah" => $new_book["count"],
+        ":id_kategori" => $new_book["id_kategori"]
     ];
 
     if($stmt->execute($data))
@@ -60,13 +61,14 @@ $app->post("/api/v1/barang/", function (Request $request, Response $response){
 $app->put("/api/v1/barang/{id}", function (Request $request, Response $response, $args){
     $id = $args["id"];
     $new_book = $request->getParsedBody();
-    $sql = "UPDATE barang SET nama_barang=:nama_barang, jumlah=:jumlah WHERE id=:id";
+    $sql = "UPDATE barang SET name=:name, count=:count, id_kategori=:id_kategori WHERE id=:id";
     $stmt = $this->db->prepare($sql);
     
     $data = [
         ":id" => $id,
-        ":nama_barang" => $new_book["nama_barang"],
-        ":jumlah" => $new_book["jumlah"]
+        ":name" => $new_book["name"],
+        ":count" => $new_book["count"],
+        ":id_kategori" => $new_book["id_kategori"]
     ];
 
     if($stmt->execute($data))
