@@ -111,7 +111,7 @@ $app->get("/api/v1/kategori/{id}", function (Request $request, Response $respons
 
 $app->get("/api/v1/kategori", function (Request $request, Response $response, $args){
     $keyword = $request->getQueryParam("name");
-    $sql = "SELECT * FROM kategori WHERE barang.name LIKE '%$keyword%'";
+    $sql = "SELECT * FROM kategori WHERE name LIKE '%$keyword%'";
     $stmt = $this->db->prepare($sql);
     $stmt->execute();
     $result = $stmt->fetchAll();
