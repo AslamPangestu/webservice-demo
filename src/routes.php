@@ -23,7 +23,7 @@ $app->get("/api/v1/barang/", function (Request $request, Response $response){
 
 $app->get("/api/v1/barang/{id}", function (Request $request, Response $response, $args){
     $id = $args["id"];
-    $sql = "SELECT barang.id, barang.name AS nama_barang, kategori.name AS kategori, count FROM barang INNER JOIN kategori ON kategori.id = barang.id_kategori WHERE id=:id";
+    $sql = "SELECT barang.id, barang.name AS nama_barang, kategori.name AS kategori, count FROM barang INNER JOIN kategori ON kategori.id = barang.id_kategori WHERE barang.id=:id";
     $stmt = $this->db->prepare($sql);
     $stmt->execute([":id" => $id]);
     $result = $stmt->fetch();
