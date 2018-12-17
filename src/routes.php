@@ -32,7 +32,7 @@ $app->get("/api/v1/barang/{id}", function (Request $request, Response $response,
 
 $app->get("/api/v1/barang", function (Request $request, Response $response, $args){
     $keyword = $request->getQueryParam("name");
-    $sql = "SELECT barang.id, barang.name AS nama_barang, kategori.name AS kategori, count FROM barang INNER JOIN kategori ON kategori.id = barang.id_kategori WHERE name LIKE '%$keyword%'";
+    $sql = "SELECT barang.id, barang.name AS nama_barang, kategori.name AS kategori, count FROM barang INNER JOIN kategori ON kategori.id = barang.id_kategori WHERE barang.name LIKE '%$keyword%'";
     $stmt = $this->db->prepare($sql);
     $stmt->execute();
     $result = $stmt->fetchAll();
@@ -47,8 +47,8 @@ $app->post("/api/v1/barang/", function (Request $request, Response $response){
     $stmt = $this->db->prepare($sql);
 
     $data = [
-        ":nama_barang" => $new_book["name"],
-        ":jumlah" => $new_book["count"],
+        ":name" => $new_book["name"],
+        ":count" => $new_book["count"],
         ":id_kategori" => $new_book["id_kategori"]
     ];
 
