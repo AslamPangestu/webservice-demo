@@ -14,7 +14,7 @@ $app->get('/[{name}]', function (Request $request, Response $response, array $ar
 });
 
 $app->get("/api/v1/barang/", function (Request $request, Response $response){
-    $sql = "SELECT * FROM barang";
+    $sql = "SELECT barang.id, barang.name, kategori.name, count FROM barang INNER JOIN kategori ON kategori.id = barang.id_kategori";
     $stmt = $this->db->prepare($sql);
     $stmt->execute();
     $result = $stmt->fetchAll();
