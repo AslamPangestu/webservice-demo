@@ -56,7 +56,7 @@ $app->post("/api/v1/barang/", function (Request $request, Response $response){
        return $response->withJson(["status" => "success", "data" => "1"], 200);
     
     return $response->withJson(["status" => "failed", "data" => "0"], 200);
-})->add(cekAPIKey);
+})->add($cekAPIKey);
 
 $app->put("/api/v1/barang/{id}", function (Request $request, Response $response, $args){
     $id = $args["id"];
@@ -75,7 +75,7 @@ $app->put("/api/v1/barang/{id}", function (Request $request, Response $response,
        return $response->withJson(["status" => "success", "data" => "1"], 200);
     
     return $response->withJson(["status" => "failed", "data" => "0"], 200);
-})->add(cekAPIKey);
+})->add($cekAPIKey);
 
 $app->delete("/api/v1/barang/{id}", function (Request $request, Response $response, $args){
     $id = $args["id"];
@@ -90,4 +90,4 @@ $app->delete("/api/v1/barang/{id}", function (Request $request, Response $respon
        return $response->withJson(["status" => "success", "data" => "1"], 200);
     
     return $response->withJson(["status" => "failed", "data" => "0"], 200);
-})->add(cekAPIKey);
+})->add($cekAPIKey);
