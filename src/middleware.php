@@ -4,7 +4,7 @@
 // e.g: $app->add(new \Slim\Csrf\Guard);
 
 // middleware untuk validasi api key
-$app->add(function ($request, $response, $next) {
+$cekAPIKey = function ($request, $response, $next) {
     
     $key = $request->getQueryParam("key");
 
@@ -31,4 +31,4 @@ $app->add(function ($request, $response, $next) {
 
     return $response->withJson(["status" => "Unauthorized"], 401);
 
-});
+};

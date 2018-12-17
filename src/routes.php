@@ -23,7 +23,7 @@ $app->get("/api/v1/barang/", function (Request $request, Response $response){
 
 $app->get("/api/v1/barang/{id}", function (Request $request, Response $response, $args){
     $id = $args["id"];
-    $sql = "SELECT * FROM barang WHERE id=:id";
+    $sql = "SELECT barang.id, barang.name AS nama_barang, kategori.name AS kategori, count FROM barang INNER JOIN kategori ON kategori.id = barang.id_kategori WHERE id=:id";
     $stmt = $this->db->prepare($sql);
     $stmt->execute([":id" => $id]);
     $result = $stmt->fetch();
@@ -32,7 +32,7 @@ $app->get("/api/v1/barang/{id}", function (Request $request, Response $response,
 
 $app->get("/api/v1/barang", function (Request $request, Response $response, $args){
     $keyword = $request->getQueryParam("name");
-    $sql = "SELECT * FROM barang WHERE name LIKE '%$keyword%'";
+    $sql = "SELECT barang.id, barang.name AS nama_barang, kategori.name AS kategori, count FROM barang INNER JOIN kategori ON kategori.id = barang.id_kategori WHERE name LIKE '%$keyword%'";
     $stmt = $this->db->prepare($sql);
     $stmt->execute();
     $result = $stmt->fetchAll();
@@ -56,7 +56,7 @@ $app->post("/api/v1/barang/", function (Request $request, Response $response){
        return $response->withJson(["status" => "success", "data" => "1"], 200);
     
     return $response->withJson(["status" => "failed", "data" => "0"], 200);
-});
+})->add(cekAPIKey);
 
 $app->put("/api/v1/barang/{id}", function (Request $request, Response $response, $args){
     $id = $args["id"];
@@ -75,7 +75,7 @@ $app->put("/api/v1/barang/{id}", function (Request $request, Response $response,
        return $response->withJson(["status" => "success", "data" => "1"], 200);
     
     return $response->withJson(["status" => "failed", "data" => "0"], 200);
-});
+})->add(cekAPIKey);
 
 $app->delete("/api/v1/barang/{id}", function (Request $request, Response $response, $args){
     $id = $args["id"];
@@ -90,4 +90,4 @@ $app->delete("/api/v1/barang/{id}", function (Request $request, Response $respon
        return $response->withJson(["status" => "success", "data" => "1"], 200);
     
     return $response->withJson(["status" => "failed", "data" => "0"], 200);
-});
+})->add(cekAPIKey);
