@@ -109,9 +109,9 @@ $app->get("/api/v1/kategori/{id}", function (Request $request, Response $respons
     return $response->withJson(["status" => "success", "data" => $result], 200);
 });
 
-$app->get("/api/v1/kategori", function (Request $request, Response $response, $args){
-    $keyword = $request->getQueryParam("name");
-    $sql = "SELECT * FROM kategori WHERE name LIKE '%$keyword%'";
+$app->get("/api/v1/kategori/search/{name}", function (Request $request, Response $response, $args){
+    $name = $request->getAttribute("name");
+    $sql = "SELECT * FROM kategori WHERE name LIKE '%$name%'";
     $stmt = $this->db->prepare($sql);
     $stmt->execute();
     $result = $stmt->fetchAll();
