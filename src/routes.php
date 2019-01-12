@@ -30,9 +30,9 @@ $app->get("/api/v1/barang/{id}", function (Request $request, Response $response,
     return $response->withJson(["status" => "success", "data" => $result], 200);
 });
 
-$app->get("/api/v1/barang/search/", function (Request $request, Response $response, $args){
-    $keyword = $request->getQueryParam("name");
-    $sql = "SELECT barang.id, barang.name AS nama_barang, kategori.name AS kategori, count FROM barang INNER JOIN kategori ON kategori.id = barang.id_kategori WHERE barang.name LIKE '%$keyword%'";
+$app->get("/api/v1/barang/search/{name}", function (Request $request, Response $response, $args){
+    $name = $request->getQueryParam("name");
+    $sql = "SELECT barang.id, barang.name AS nama_barang, kategori.name AS kategori, count FROM barang INNER JOIN kategori ON kategori.id = barang.id_kategori WHERE barang.name LIKE '%$name%'";
     $stmt = $this->db->prepare($sql);
     $stmt->execute();
     $result = $stmt->fetchAll();
