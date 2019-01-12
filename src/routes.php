@@ -31,7 +31,7 @@ $app->get("/api/v1/barang/{id}", function (Request $request, Response $response,
 });
 
 $app->get("/api/v1/barang/search/{name}", function (Request $request, Response $response, $args){
-    $name = $request->getQueryParam("name");
+    $name = $request->getAttribute("name");
     $sql = "SELECT barang.id, barang.name AS nama_barang, kategori.name AS kategori, count FROM barang INNER JOIN kategori ON kategori.id = barang.id_kategori WHERE barang.name LIKE '%$name%'";
     $stmt = $this->db->prepare($sql);
     $stmt->execute();
